@@ -5714,7 +5714,7 @@ class Ushinotokimairi extends Madman
         log=
             mode:"skill"
             to:@id
-            comment:"#{@name} 被 #{pl.name} 诅咒了。"
+            comment:"#{@name} 诅咒了 #{pl.name}。"
         splashlog game.id,game,log
         # 複合させる
 
