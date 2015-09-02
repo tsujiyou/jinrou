@@ -134,6 +134,13 @@ module.exports.actions=(req,res,ss)->
             return
         M.rooms.find().sort({id:-1}).limit(1).nextObject (err,doc)=>
             id=if doc? then doc.id+1 else 1
+            
+            #make sure same user won't build new room within short period
+            minTimeInterval = 30*1000
+            if doc.owner.userid==req.session.user.userid
+                if (Date.now()-doc.made)<minTimeInterval
+                    res {error: "You con't build new room within #{((minTimeInterval-(Date.now()-doc.made))/1000).toFixed(0)} second."}
+                    return
             room=
                 id:id   #ID連番
                 name: query.name
