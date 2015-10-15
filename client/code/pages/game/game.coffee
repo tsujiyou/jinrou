@@ -10,7 +10,7 @@ this_rule=null  # 规则オブジェクトがある
 enter_result=null #enter
 
 this_icons={}   #名字と头像の対応表
-this_logdata={} # ログデータをアレする
+this_logdata={} # ログ数据をアレする
 this_style=null #style要素（終わったら消したい）
 
 
@@ -21,7 +21,7 @@ exports.start=(roomid)->
     my_job=null
     this_room_id=null
 
-    # 役職名一览
+    # 职业名一览
     cjobs=Shared.game.jobs.filter (x)->x!="Human"    # 村人は自動で决定する
 
     # CSS操作
@@ -78,7 +78,7 @@ exports.start=(roomid)->
         this_icons={}
         this_logdata={}
         this_openjob_flag=false
-        # 役職情報をもらった
+        # 职业情報をもらった
         getjobinfo=(obj)->
             console.log obj,this_room_id
             return unless obj.id==this_room_id
@@ -91,7 +91,7 @@ exports.start=(roomid)->
             if obj.type
                 infop=$ "<p>你的身份是<b>#{obj.jobname}</b>（</p>"
                 if obj.desc
-                    # 役職説明
+                    # 职业説明
                     for o,i in obj.desc
                         if i>0
                             infop.append "・"
@@ -132,7 +132,7 @@ exports.start=(roomid)->
                 # 勝敗
                 $("#jobinfo").append pp "你#{if obj.winner then '胜利' else '败北'}了"
             if obj.dead
-                # 自分は既に死んでいる
+                # 自己は既に死んでいる
                 document.body.classList.add "heaven"
             if obj.will
                 $("#willform").get(0).elements["will"].value=obj.will
@@ -198,7 +198,7 @@ exports.start=(roomid)->
                 Index.util.message "错误",result.error
             else
                 if result.game?.day>=1
-                    # ゲームが始まったら消す
+                    # 游戏が始まったら消す
                     $("#playersinfo").empty()
                     #TODO: 加入游戏ボタンが2箇所にあるぞ
                     if result.game
@@ -211,7 +211,7 @@ exports.start=(roomid)->
                 $("#logs").empty()
                 $("#chooseviewday").empty() # 何日目だけ表示
                 if result.game?.finished
-                    # 终了した・・・次のゲームボタン
+                    # 终了した・・・次の游戏ボタン
                     b=makebutton "以相同设定建立新房间","新房间建成后仍可以变更设定。"
                     $("#playersinfo").append b
                     $(b).click (je)->
@@ -230,7 +230,7 @@ exports.start=(roomid)->
                 gettimer parseInt(result.timer),result.timer_mode if result.timer?
 
         ss.rpc "game.game.getlog", roomid,sentlog
-        # 新しいゲーム
+        # 新しい游戏
         newgamebutton = (je)->
             form=$("#gamestart").get 0
             # 规则設定保存を参照する
@@ -341,7 +341,7 @@ exports.start=(roomid)->
                 jobs=JSON.parse localStorage.savedJobs
                 delete localStorage.savedRule
                 delete localStorage.savedJobs
-                # 時間設定
+                # 时间設定
                 daysec=rule.day-0
                 nightsec=rule.night-0
                 remainsec=rule.remain-0
@@ -362,7 +362,7 @@ exports.start=(roomid)->
                             e.value=rule[key]
                 # 配役も再現
                 for job in Shared.game.jobs
-                    e=form.elements[job]    # 役職
+                    e=form.elements[job]    # 职业
                     if e?
                         e.value=jobs[job]?.number ? 0
 
@@ -446,7 +446,7 @@ exports.start=(roomid)->
         userid=Index.app.userid()
         if room.mode=="waiting"
             if room.owner.userid==Index.app.userid()
-                # 自分
+                # 自己
                 b=makebutton "展开游戏开始界面"
                 $("#playersinfo").append b
                 $(b).click newgamebutton
@@ -492,14 +492,14 @@ exports.start=(roomid)->
                 
                 
         $("#gamestart").submit (je)->
-            # いよいよゲーム開始だ！
+            # いよいよ游戏開始だ！
             je.preventDefault()
             query=Index.util.formQuery je.target
             jobrule=query.jobrule
             ruleobj=Shared.game.getruleobj(jobrule) ? {}
-            # ステップ2: 時間チェック
+            # ステップ2: 时间チェック
             step2=->
-                # 夜時間をチェック
+                # 夜时间をチェック
                 minNight = ruleobj.suggestedNight?.min ? -Infinity
                 maxNight = ruleobj.suggestedNight?.max ? Infinity
                 night = parseInt(query.night_minute)*60+parseInt(query.night_second)
@@ -691,7 +691,7 @@ exports.start=(roomid)->
             if bt.type=="submit"
                 # 送信ボタン
                 bt.form.elements["commandname"].value=bt.name   # コマンド名教えてあげる
-                bt.form.elements["jobtype"].value=bt.dataset.job    # 役職名も教えてあげる
+                bt.form.elements["jobtype"].value=bt.dataset.job    # 职业名も教えてあげる
         # 强行退出ボタン
         $("#speakform").get(0).elements["norevivebutton"].addEventListener "click",(e)->
             Index.util.ask "强行退出","一旦成功强行退出将不能撤销。确定要这样做吗？",(result)->
@@ -776,7 +776,7 @@ exports.start=(roomid)->
                     $("#jobform").removeAttr "hidden"
                 else
                     $("#jobform").attr "hidden","hidden"
-        # 残り時間
+        # 残り时间
         socket_ids.push Index.socket.on "time",null,(msg,channel)->
             if channel=="room#{roomid}" || channel.indexOf("room#{roomid}_")==0 || channel==Index.app.userid()
                 gettimer parseInt(msg.time),msg.mode
@@ -798,7 +798,7 @@ exports.start=(roomid)->
         .click (je)->
             je.stopPropagation()
 
-    # 役職入力フォームを作る
+    # 职业入力フォームを作る
     for job in Shared.game.jobs
         # 探す
         continue if job=="Human"    # 村人だけは既に置いてある（あまり）
@@ -1119,7 +1119,7 @@ exports.start=(roomid)->
                     option.textContent="第#{log.day}天"
                     $("#chooseviewday").append option
                     setcss()
-        # 日にちデータ
+        # 日にち数据
         if this_logdata.day
             p.dataset.day=this_logdata.day
             if this_logdata.night
@@ -1378,7 +1378,7 @@ speakValueToStr=(game,value)->
         when "gmmonologue"
             "自言自语"
         when "helperwhisper"
-            # 帮手先がいない場合（自分への建议）
+            # 帮手先がいない場合（自己への建议）
             "建议"
         else
             if result=value.match /^gmreply_(.+)$/

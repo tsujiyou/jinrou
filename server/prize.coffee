@@ -105,10 +105,10 @@ module.exports=
                 throw new err
             unless doc?
                 # 全部おわった
-            # 自分が参加したゲームを全て出す
+            # 自己が参加した游戏を全て出す
             result=[]   # 賞の一览
             # 勝敗数に関係する称号
-            # 勝った試合のみ抜き出して自分だけにする
+            # 勝った試合のみ抜き出して自己だけにする
             mes=docs.map((x)->x.players.filter((pl)->pl.realid==userid)[0])
             wins=mes.filter((x)->x.winner)
             loses=mes.filter((x)->x.winner==false)
@@ -126,7 +126,7 @@ module.exports=
                             # 少ないほうから順に称号チェック
                             if num<=count
                                 result.push "losecount_#{job}_#{num}"
-            # docsに自分のIDを追加する
+            # docsに自己のIDを追加する
             docs.forEach (game)->
                 game.myid=getplreal(game,userid).id
             # カウント称号
@@ -165,11 +165,11 @@ module.exports=
     prizeQuote:(prizename)->"≪#{prizename}≫"
             
 ###
-・役職ごとの胜利回数賞
-"wincount_(役職名)_(回数)" というIDをつける
+・职业ごとの胜利回数賞
+"wincount_(职业名)_(回数)" というIDをつける
 例） "wincount_Diviner_5"
-・役職ごとの败北回数賞
-"losecount_(役職名)_(回数)" というIDをつける
+・职业ごとの败北回数賞
+"losecount_(职业名)_(回数)" というIDをつける
 例) "losecount_Human_20"
 
 ・カウント系称号

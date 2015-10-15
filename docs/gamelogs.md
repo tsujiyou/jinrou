@@ -1,7 +1,7 @@
 # gameのgamelogs一览
     {
-      id:(id)	//自分のID
-      type:(type)	//自分的职业
+      id:(id)	//自己のID
+      type:(type)	//自己的职业
       event:(event name)	//起こったこと
       target:(target?)	//対象のID（あれば）
       flag:(String?)	//補助的な情報（あれば）
@@ -13,7 +13,7 @@ eventごとに列挙。
 ## 全体系
 
 ### job
-役職の対象を選択した
+职业の対象を選択した
 * target: 相手のID
 
 ### found
@@ -21,8 +21,8 @@ eventごとに列挙。
 * flag: 死因
 
 ### transform
-役職が変化した
-* flag: 新しい役職
+职业が変化した
+* flag: 新しい职业
 
 ### bitten
 噛まれた（死んだかどうかは問わない）
@@ -118,7 +118,7 @@ GJした
 
 ## 王子
 ### princeCO
-処刑を回避した
+处刑を回避した
 
 ## 超常现象研究者
 ### PIdivine

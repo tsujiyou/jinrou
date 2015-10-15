@@ -3,7 +3,7 @@ JINROU data fixer
 Counts all userlogs.
 
 */
-var user="test", password="test";	//自分で密码を入れてね
+var user="test", password="test";	//自己で密码を入れてね
 
 var mongo=require('mongodb');
 

@@ -1,17 +1,17 @@
 Shared=
     game:exports
-# ------ 役職一览
-# 基本役職
+# ------ 职业一览
+# 基本职业
 exports.jobs=["Human","Werewolf","Diviner","Psychic","Madman","Guard","Couple","Fox",
-# 特殊役職?
+# 特殊职业?
 "Poisoner","BigWolf","TinyFox","Cat",
-# るる鯖で見つけた役職
+# るる鯖で見つけた职业
 "Fanatic","Immoral"
-# 特殊役職2
+# 特殊职业2
 "Devil","ToughGuy","Cupid","Stalker","OccultMania","WhisperingMad","Lover","Dog",
-# 桃栗基本特殊役職
+# 桃栗基本特殊职业
 "Bat","Noble","Slave","Magician","Spy","WolfDiviner",
-# 桃栗期間限定役職
+# 桃栗期間限定职业
 "Fugitive","Merchant","QueenSpectator","MadWolf","Liar","Spy2","Copier",
 # 究极人狼的职业
 "Cursed","ApprenticeSeer","Diseased","Spellcaster","Lycan","Priest","Prince","PI","Sorcerer",
@@ -35,10 +35,10 @@ exports.jobs=["Human","Werewolf","Diviner","Psychic","Madman","Guard","Couple","
 # 月夜の人狼
 "DrawGirl","CautiousWolf",
 ]
-# ここには入らない役職
+# ここには入らない职业
 # Light, Neet, MinionSelector,QuantumPlayer, HolyProtected, BloodyMary
 
-# 期間限定役職
+# 期間限定职业
 ((date)->
     month=date.getMonth()
     d=date.getDate()
@@ -85,7 +85,7 @@ exports.categoryNames=
     Switching:"职业变化系"
     Others:"第三阵营系"
 
-# 役職规则たち 役職人数一览を返す（Humanは向こうで補完）
+# 职业规则たち 职业人数一览を返す（Humanは向こうで補完）
 normal1=(number)->
   ret={}
   #狼
@@ -607,7 +607,7 @@ exports.getruleobj=(name)->
         # 特殊だ!
         return {
             name:"量子人狼"
-            title:"全員的职业などが確率で表現される。只限村人・人狼・占卜师。"
+            title:"全员的职业などが確率で表現される。只限村人・人狼・占卜师。"
             rule:null
             suggestedNight:{
                 max:60
@@ -995,7 +995,7 @@ exports.rules=[
                     {
                         value:"high"
                         label:"高"
-                        title:"出現役職どうしの兼ね合いも考慮します。"
+                        title:"出現职业どうしの兼ね合いも考慮します。"
                     }
                     {
                         value:"middle"
@@ -1213,7 +1213,7 @@ exports.rules=[
                 }
                 getstr:(value)->
                     {
-                        label:"自分投票"
+                        label:"向自己投票"
                         value:if value=="ok" then "有" else "无"
                     }
             }
@@ -1463,7 +1463,7 @@ exports.rules=[
             }
         ]
     }
-    # 护卫役職
+    # 护卫职业
     {
         label:null
         visible:(rule,jobs)->
