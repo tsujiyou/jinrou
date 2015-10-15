@@ -56,7 +56,7 @@ exports.getroom=(mode,rooms)->
 			img.alt="有GM"
 			td.insertBefore img,td.firstChild
 		
-		#状態
+		#状态
 		td=tr.insertCell -1
 		td.textContent= switch room.mode
 			when "waiting"
