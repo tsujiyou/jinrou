@@ -1085,7 +1085,7 @@ exports.rules=[
             {
                 name:"wolfminion"
                 label:"狼的仆从"
-                title:"第一天夜里人狼会指定狼的仆从。变成狼的仆从后技能维持不变，但是阵营变为狼人阵营。"
+                title:"第一天夜里人狼会指定狼的仆从。变成狼的仆从后技能维持不变，但是阵营变为人狼阵营。"
                 type:"checkbox"
                 value:{
                     value:"1"
@@ -1515,7 +1515,7 @@ exports.rules=[
             {
                 name:"deadfox"
                 label:"区分咒杀和袭击"
-                title:"选中后，妖狐被占卜师咒杀和被狼人袭击致死会有不同的通知。"
+                title:"选中后，妖狐被占卜师咒杀和被人狼袭击致死会有不同的通知。"
                 type:"checkbox"
                 value:{
                     value:"obvious"

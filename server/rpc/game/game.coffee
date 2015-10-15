@@ -1455,7 +1455,7 @@ class Game
             splashlog @id,this,log
             
             
-            # 房间を终了状態にする
+            # 房间を终了状态にする
             M.rooms.update {id:@id},{$set:{mode:"end"}}
             @ss.publish.channel "room#{@id}","refresh",{id:@id}
             @save()
@@ -4840,7 +4840,7 @@ class SolitudeWolf extends Werewolf
             log=
                 mode:"skill"
                 to:@id
-                comment:"其他的狼人还活着。#{@name} 现在不能袭击他人。"
+                comment:"其他的人狼还活着。#{@name} 现在不能袭击他人。"
             splashlog game.id,game,log
         super
     getSpeakChoice:(game)->
@@ -6267,7 +6267,7 @@ class Counseled extends Complex
             name:"更生者"
             type:"Counseled"
         }
-# 巫女のガードがある状態
+# 巫女のガードがある状态
 class MikoProtected extends Complex
     cmplType:"MikoProtected"
     die:(game,found)->
