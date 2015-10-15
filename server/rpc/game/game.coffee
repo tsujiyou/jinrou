@@ -1595,7 +1595,7 @@ class Game
                 if x.mode=="werewolf" && @rule.wolfsound=="aloud"
                     {
                         mode: "werewolf"
-                        name: "人狼的远吠"
+                        name: "狼的远吠"
                         comment: "嗷呜・・・"
                         time: x.time
                     }

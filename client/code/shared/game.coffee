@@ -1351,7 +1351,7 @@ exports.rules=[
         rules:[
             {
                 name:"wolfsound"
-                label:"能够听到人狼的远吠"
+                label:"能够听到狼的远吠"
                 type:"checkbox"
                 value:{
                     value:"aloud"
@@ -1361,7 +1361,7 @@ exports.rules=[
                 }
                 getstr:(value)->
                     {
-                        label:"人狼的远吠"
+                        label:"狼的远吠"
                         value:if value=="aloud" then "能听到" else "听不到"
                     }
             }
