@@ -83,7 +83,7 @@ exports.actions =(req,res,ss)->
                     return
                 login query,req,res,ss
                 
-# ユーザーデータが欲しい
+# ユーザー数据が欲しい
     userData: (userid,password)->
         M.users.findOne {"userid":userid},(err,record)->
             if err?
@@ -225,13 +225,13 @@ exports.actions =(req,res,ss)->
             res {error:"请登陆"}
             return
         myid=req.session.userId
-        # DBから自分のやつを引っ張ってくる
+        # DBから自己のやつを引っ張ってくる
         results=[]
         M.userlogs.findOne {userid:myid},(err,doc)->
             if err?
                 console.error err
             unless doc?
-                # 戦績データがない
+                # 戦績数据がない
                 res null
                 return
             res doc
@@ -249,7 +249,7 @@ exports.crpassword= (raw)->
         md5.update raw  # md5でハッシュ化
         sha256.update raw+md5.digest 'hex'  # sha256でさらにハッシュ化
         sha256.digest 'hex' # 结果を返す
-#ユーザーデータ作る
+#ユーザー数据作る
 makeuserdata=(query)->
     {
         userid: query.userid

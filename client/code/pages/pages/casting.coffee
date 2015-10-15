@@ -12,7 +12,7 @@ exports.start=(rolename)->
         $("#rolename").text result[2]
     $("#roletitle").text ruleobj.title
 
-    jobs=[null] # 出現する役職の一览
+    jobs=[null] # 出現する职业の一览
     
     the=$("#rolehead").get 0
     thr=the.insertRow 0

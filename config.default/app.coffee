@@ -50,6 +50,6 @@ module.exports =
   
   # 房间管理について
   rooms:
-    # 古い部屋に入るまでの時間(hours)
+    # 古い部屋に入るまでの时间(hours)
     fresh:24*3
 	

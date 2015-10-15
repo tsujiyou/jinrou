@@ -212,7 +212,7 @@ module.exports.actions=(req,res,ss)->
                     res error:"房间已满"
                     return
                 if room.mode=="playing" && room.jobrule=="特殊规则.Endless黑暗火锅"
-                    # Endless黑暗火锅の場合はゲーム内人数による人数判定を行う
+                    # Endless黑暗火锅の場合は游戏内人数による人数判定を行う
                     if Server.game.game.endlessPlayersNumber(roomid) >= room.number
                         # 満員
                         res error:"房间已满"
@@ -387,7 +387,7 @@ module.exports.actions=(req,res,ss)->
             res "请登陆"
             return
         sethelper ss,roomid,req.session.userId,id,res
-    # 全員ready解除する
+    # 全员ready解除する
     unreadyall:(roomid,id)->
         unless req.session.userId
             res "请登陆"

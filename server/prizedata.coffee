@@ -48,8 +48,8 @@ loadTable=(arr)->
     nums=arr.shift()
     # 1列目は見出しなのでいらない
     nums.shift()
-    normals=[]  #通常役職
-    specials=[] #特殊役職
+    normals=[]  #通常职业
+    specials=[] #特殊职业
     normaljobs=["all","Human","Werewolf","Diviner","Psychic","Madman","Guard","Couple","Fox"]
     # 数をパースする
     for num in nums
@@ -62,7 +62,7 @@ loadTable=(arr)->
                 specials.push parseInt res[1]
     # 残りをパースする
     for row in arr
-        # 最初は役職名
+        # 最初は职业名
         jobname=row.shift()
         normalflag = jobname in normaljobs
         result[jobname]=obj={}
@@ -187,7 +187,7 @@ makeOtherPrize=(result)->
                 10:"老主顾/おとくいさま"
             func:(game,pl)->
                 game.gamelogs.filter((x)->x.target==pl.id && x.event=="sendkit").length
-        # 商品を人狼側に送った回数
+        # 商品を人狼侧に送った回数
         sendkits_to_wolves:
             names:
                 1:"误送/ごそう"

@@ -117,7 +117,7 @@ exports.start=(user)->
                 },teamcolors
             }
             graph.openAnimate 0.2
-            # 役職ごとの勝率
+            # 职业ごとの勝率
             graph=grp "各个职业的胜败情况"
             graph.hide()
             gs={}
