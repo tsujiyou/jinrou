@@ -7530,7 +7530,7 @@ module.exports.actions=(req,res,ss)->
                     # helperwhisper:守り先が決まっていない帮手
                     log.to=player.id
                 when "gm"
-                    log.name="游戏管理员"
+                    log.name="GM→所有人"
                 when "gmheaven"
                     log.name="GM→灵界"
                 when "gmaudience"

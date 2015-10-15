@@ -308,7 +308,7 @@ exports.start=(roomid)->
                                 input.attr "name",obj.name.second
                                 input.attr "min","0"
                                 input.attr "max","59"
-                                input.attr "step","1"
+                                input.attr "step","15"
                                 input.attr "size","5"
                                 input.attr "value",String obj.defaultValue.second
                                 label.append input
