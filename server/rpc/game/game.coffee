@@ -112,6 +112,7 @@ module.exports=
             userid:-1
             name:null
             mode:"system"
+        console.log {error:"game"+room.id+"存在"}
         unless games[room.id]?
             # 检索数据库game是否不存在？
             M.games.findOne {id:room.id}, (err,doc)=>
