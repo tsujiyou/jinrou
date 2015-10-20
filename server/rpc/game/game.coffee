@@ -1099,6 +1099,22 @@ class Game
             # こいつらは1夜限り
             return !(/^(?:GreedyWolf_|ToughWolf)_/.test fl)
 
+    # 向房间成员通报猝死统计
+    punish:(pls)->
+        if pls.length
+            message = 
+                id:@id
+                userlist:[]
+                time:parseInt(60/@players.length)
+            for pl in pls
+                message.userlist.push {"userid":pl.realid,"name":pl.name}
+            ownerID=M.rooms.findOne {id:@id},(err,doc)->
+                return unless doc?
+                doc.owner.userid
+            console.log("ownerID:"+ownerID)
+            @ss.publish.channel "room#{@id}",'punishalert',message
+
+
     # 死んだ人を処理する type: タイミング
     # type: "day": 夜が明けたタイミング "night": 处刑後 "other":其他(ターン変わり時の能力で死んだやつなど）
     bury:(type)->
@@ -1151,8 +1167,10 @@ class Game
                 when "gone-norevive"
                     "强行退出了。"
                 when "gone-day"
+                    punish(x)
                     "因为没有及时投票猝死了。猝死是十分令人困扰的行为，请务必不要再犯。"
                 when "gone-night"
+                    punish(x)
                     "因为没有及时使用夜间技能猝死了。猝死是十分令人困扰的行为，请务必不要再犯。"
                 else
                     "死了"
@@ -1279,7 +1297,6 @@ class Game
             # 投票犹豫の場合初期化
             clearTimeout @timerid
             @timer()
-    
     # 勝敗决定
     judge:->
         aliveps=@players.filter (x)->!x.dead    # 生きている人を集める
@@ -1478,21 +1495,6 @@ class Game
             @prize_check()
             clearTimeout @timerid
             
-
-            # 向房间成员通报猝死统计
-            norevivers=@players.filter((x)->x.norevive)
-            if norevivers.length
-                message = 
-                    id:@id
-                    userlist:[]
-                    time:parseInt(60/@players.length)
-                for pl in norevivers
-                    message.userlist.push {"userid":pl.realid,"name":pl.name}
-                ownerID=M.rooms.findOne {id:@id},(err,doc)->
-                    return unless doc?
-                    doc.owner.userid
-                console.log("ownerID:"+ownerID)
-                @ss.publish.channel "room#{@id}",'punishalert',message
 
 
             # DBからとってきて告知ツイート
@@ -7881,4 +7883,3 @@ shuffle= (arr)->
 # 游戏情報ツイート
 tweet=(roomid,message)->
     Server.oauth.template roomid,message,Config.admin.password
-        

@@ -797,7 +797,8 @@ exports.start=(roomid)->
         # 向房间成员通报猝死统计
         socket_ids.push Index.socket.on 'punishresult',null,(msg,channel)->
             if msg.id==roomid
-                Index.util.message "猝死惩罚",msg.name+"由于猝死被禁止游戏"
+                # Index.util.message "猝死惩罚",msg.name+"由于猝死被禁止游戏"
+                console.log "猝死惩罚:"+msg.name+"由于猝死被禁止游戏"
         
     
         $(document).click (je)->
