@@ -112,6 +112,19 @@ module.exports=
             userid:-1
             name:null
             mode:"system"
+        unless games[room.id]?
+            # 检索数据库game是否不存在？
+            M.games.findOne {id:room.id}, (err,doc)=>
+                if err?
+                    console.log err
+                    throw err
+                unless doc?
+                    M.rooms.remove {id:room.id}
+                    console.log {error:"由于game不存在，room"+room.id+"被移除"}
+                    return
+                games[roomid]=game=Game.unserialize doc,ss
+                ne()
+            return
         if games[room.id]
             splashlog room.id,games[room.id], log
             games[room.id].players=games[room.id].players.filter (pl)->pl.realid!=player.realid
