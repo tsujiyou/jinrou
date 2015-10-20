@@ -298,7 +298,7 @@ chkCmplType=(obj,cmpltype)->
     if obj.isCmplType?
         return obj.isCmplType cmpltype
     if obj.type=="Complex"
-        obj.Complex_type==cmpltype || chkCmplType obj.Complex_main,cmpltype
+        return obj.Complex_type==cmpltype || chkCmplType obj.Complex_main,cmpltype
     else
         false
 # プレイヤー的职业を調べる
