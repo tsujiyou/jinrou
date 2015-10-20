@@ -43,13 +43,26 @@ exports.actions =(req,res,ss)->
             addquery=
                 userid:doc.userid
                 ip:doc.ip
-            if query.expire=="some"
-                d=new Date()
-                d.setMonth d.getMonth()+parseInt query.month
-                d.setDate d.getDate()+parseInt query.day
-                addquery.expires=d
-            M.blacklist.insert addquery,{safe:true},(err,doc)->
-                res null
+            M.blacklist.findOne {userid:query.userid},(err,doc)->
+                unless doc?
+                    if query.expire=="some"
+                        d=new Date()
+                        addquery.timestamp=d.getTime()
+                        d.setMonth d.getMonth()+parseInt query.month
+                        d.setDate d.getDate()+parseInt query.day
+                        d.setHour d.getHour()+parseInt query.hour
+                        addquery.expires=d
+                    M.blacklist.insert addquery,{safe:true},(err,doc)->
+                        res null
+                if query.expire=="some"
+                    d=doc.expires
+                    addquery.timestamp=d.getTime()
+                    d.setMonth d.getMonth()+parseInt query.month
+                    d.setDate d.getDate()+parseInt query.day
+                    d.setHour d.getHour()+parseInt query.hour
+                    addquery.expires=d
+                M.blacklist.update {userid:query.userid},{$set:{expires:addquery.expires}},{safe:true},(err,doc)->
+                    res null
     removeBlacklist:(query)->
         unless req.session.administer
             res {error:"不是管理员"}
