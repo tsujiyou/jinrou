@@ -513,6 +513,7 @@ module.exports.actions=(req,res,ss)->
                         delete x.owner
                         x.players.forEach (p)->
                             unless p?
+                                console.log "room fatal error ID:"+x.id
                                 return
                             delete p.realid
                 res docs
