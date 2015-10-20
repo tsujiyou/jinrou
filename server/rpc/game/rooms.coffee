@@ -512,6 +512,8 @@ module.exports.actions=(req,res,ss)->
                     if x.blind
                         delete x.owner
                         x.players.forEach (p)->
+                            unless p?
+                                return
                             delete p.realid
                 res docs
             

@@ -112,7 +112,7 @@ module.exports=
             userid:-1
             name:null
             mode:"system"
-        console.log {error:"game"+room.id+"存在"}
+        console.log "game"+room.id+"存在"
         unless games[room.id]?
             # 检索数据库game是否不存在？
             M.games.findOne {id:room.id}, (err,doc)=>
@@ -121,7 +121,7 @@ module.exports=
                     throw err
                 unless doc?
                     M.rooms.remove {id:room.id}
-                    console.log {error:"由于game不存在，room"+room.id+"被移除"}
+                    console.log "由于game不存在，room"+room.id+"被移除"
                     return
                 games[roomid]=game=Game.unserialize doc,ss
                 ne()
