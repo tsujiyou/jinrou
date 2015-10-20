@@ -780,6 +780,25 @@ exports.start=(roomid)->
         socket_ids.push Index.socket.on "time",null,(msg,channel)->
             if channel=="room#{roomid}" || channel.indexOf("room#{roomid}_")==0 || channel==Index.app.userid()
                 gettimer parseInt(msg.time),msg.mode
+        # 向房间成员通报猝死统计
+        socket_ids.push Index.socket.on 'punishalert',null,(msg,channel)->
+            if msg.id==roomid
+                Index.util.punish "猝死惩罚",msg,(result)->
+                    # console.log "猝死名单"
+                    # console.log result
+                    ss.rpc "game.rooms.suddenDeathPunish", roomid,result,(result)->
+                        if result?
+                            if result.error?
+                                # 错误
+                                Index.util.message "猝死惩罚",result.error
+                                return
+                            Index.util.message "猝死惩罚",result
+                            return
+        # 向房间成员通报猝死统计
+        socket_ids.push Index.socket.on 'punishresult',null,(msg,channel)->
+            if msg.id==roomid
+                Index.util.message "猝死惩罚",msg.name+"由于猝死被禁止游戏"
+        
     
         $(document).click (je)->
             # クリックで发言強調

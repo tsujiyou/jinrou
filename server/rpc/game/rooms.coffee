@@ -137,10 +137,11 @@ module.exports.actions=(req,res,ss)->
             
             #在一定时间间隔内，同一用户不能连续建房
             minTimeInterval = 30*1000
-            if doc.owner.userid==req.session.user.userid
-                if (Date.now()-doc.made)<minTimeInterval
-                    res {error: "您在#{((minTimeInterval-(Date.now()-doc.made))/1000).toFixed(0)}秒内不能连续建房。"}
-                    return
+            unless id>1
+                if doc.owner.userid==req.session.user.userid
+                    if (Date.now()-doc.made)<minTimeInterval
+                        res {error: "您在#{((minTimeInterval-(Date.now()-doc.made))/1000).toFixed(0)}秒内不能连续建房。"}
+                        return
             room=
                 id:id   #ID連番
                 name: query.name
@@ -185,18 +186,31 @@ module.exports.actions=(req,res,ss)->
         unless req.session.userId
             res {error:"请登陆",require:"login"}    # ログインが必要
             return
+        M.users.findOne {userid:req.session.userId},(err,doc)->
+            unless doc?
+                res {error:"请注册",require:"login"}    # 需要注册
+                return
         M.blacklist.findOne {$or:[{userid:req.session.userId},{ip:req.session.user.ip}]},(err,doc)=>
             if doc?
+                ###
+                if doc.ip? && doc.timestamp? && doc.timestamp > Date.now() + 1000*60*60
+                    res error:"被禁止参与游戏"
+                    return
+                ###
                 if !doc.expires || doc.expires.getTime()>=Date.now()
                     res error:"被禁止参与游戏"
                     return
+                if doc.expires? && doc.expires.getTime()<Date.now()
+                    M.blacklist.remove {userid:req.session.userId},(err,doc)->
+                        unless doc?
+                            return
             
             Server.game.rooms.oneRoomS roomid,(room)=>
                 if !room || room.error?
                     res error:"这个房间不存在"
                     return
                 if req.session.userId in (room.players.map (x)->x.realid)
-                    res error:"立刻加入"
+                    res error:"已经加入"
                     return
                 if opt.name in (room.players.map (x)->x.name)
                     res error:"昵称 #{opt.name} 已经存在"
@@ -517,6 +531,51 @@ module.exports.actions=(req,res,ss)->
                                 return
                             delete p.realid
                 res docs
+    suddenDeathPunish:(roomid,opt)->
+        # opt = ["someID","someID"]
+        unless opt.length
+            res error:"对象为空"
+            return
+        unless req.session.userId
+            res {error:"请登陆",require:"login"}    # ログインが必要
+            return
+        Server.game.rooms.oneRoomS roomid,(room)=>
+            if !room || room.error?
+                res error:"这个房间不存在"
+                return
+            unless req.session.userId in (room.players.map (x)->x.realid)
+                res error:"没有加入游戏"
+                return
+            for banTarget in opt
+                unless banTarget in (room.players.map (x)->x.realid)
+                    res error:"对象非法"
+                    return
+                console.log "目标"+banTarget
+                banTargetName = ((room.players.filter((pl)->pl.realid==banTarget)).map (x)->x.name).toString()
+                banMinutes = parseInt(60/room.players.length)
+                console.log "name"+banTargetName
+                M.users.findOne {userid:banTarget},(err,doc)->
+                    unless doc?
+                        res error:"此用户不存在"
+                        return
+                    addquery=
+                        userid:doc.userid
+                        timestamp:Date.now()
+                    M.blacklist.findOne {userid:banTarget},(err,doc)->
+                        unless doc?
+                            d=new Date()
+                            d.setMinutes d.getMinutes()+banMinutes
+                            addquery.expires=d
+                            M.blacklist.insert addquery,{safe:true},(err,doc)->
+                                ss.publish.channel "room#{roomid}", "punishresult", {id:roomid,name:banTargetName}
+                                res null
+                            return
+                        if doc.expires? then d=doc.expires else d=new Date()
+                        d.setMinutes d.getMinutes()+banMinutes
+                        addquery.expires=d
+                        M.blacklist.update {userid:banTarget},{$set:{expires:addquery.expires}},{safe:true},(err,doc)->
+                            ss.publish.channel "room#{roomid}", "punishresult", {id:roomid,name:banTargetName}
+                            res null
             
 
 #res: (err)->

@@ -163,8 +163,8 @@ module.exports=
         player=game.getPlayerReal session.userId
         unless player?
             session.channel.subscribe "room#{roomid}_audience"
-#           session.channel.subscribe "room#{roomid}_notwerewolf"
-#           session.channel.subscribe "room#{roomid}_notcouple"
+            # session.channel.subscribe "room#{roomid}_notwerewolf"
+            # session.channel.subscribe "room#{roomid}_notcouple"
             return
         if player.isJobType "GameMaster"
             session.channel.subscribe "room#{roomid}_gamemaster"
@@ -695,7 +695,7 @@ class Game
                     }
 
         res null
-#======== 游戏進行の処理
+    #======== 游戏進行の処理
     #次のターンに進む
     nextturn:->
         clearTimeout @timerid
@@ -1160,12 +1160,14 @@ class Game
                 mode:"system"
                 comment:"#{x.name} #{situation}"
             splashlog @id,this,log
-#           if x.found=="punish"
-#               # 处刑→灵能
-#               @players.forEach (y)=>
-#                   if y.type=="Psychic"
-#                       # 灵能
-#                       y.results.push x
+            ###
+            if x.found=="punish"
+                # 处刑→灵能
+                @players.forEach (y)=>
+                    if y.type=="Psychic"
+                        # 灵能
+                        y.results.push x
+            ###
             @addGamelog {   # 死んだときと死因を記録
                 id:x.id
                 type:x.type
@@ -1476,6 +1478,23 @@ class Game
             @prize_check()
             clearTimeout @timerid
             
+
+            # 向房间成员通报猝死统计
+            norevivers=@players.filter((x)->x.norevive)
+            if norevivers.length
+                message = 
+                    id:@id
+                    userlist:[]
+                    time:parseInt(60/@players.length)
+                for pl in norevivers
+                    message.userlist.push {"userid":pl.realid,"name":pl.name}
+                ownerID=M.rooms.findOne {id:@id},(err,doc)->
+                    return unless doc?
+                    doc.owner.userid
+                console.log("ownerID:"+ownerID)
+                @ss.publish.channel "room#{@id}",'punishalert',message
+
+
             # DBからとってきて告知ツイート
             M.rooms.findOne {id:@id},(err,doc)->
                 return unless doc?
