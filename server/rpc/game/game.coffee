@@ -4992,7 +4992,7 @@ class WanderingGuard extends Player
         
         fl=JSON.parse(@flag ? "[]")
         if playerid in fl
-            return "这个人已经不能护卫了"
+            return "这个人已经不能守护了"
         @setTarget playerid
         # OK!
         pl=game.getPlayer(playerid)
@@ -5000,7 +5000,7 @@ class WanderingGuard extends Player
         log=
             mode:"skill"
             to:@id
-            comment:"#{@name} 护卫了 #{pl.name}。"
+            comment:"#{@name} 守护了 #{pl.name}。"
         splashlog game.id,game,log
         # 複合させる
 
@@ -6136,7 +6136,7 @@ class Guarded extends Complex
                     log=
                         mode:"skill"
                         to:guard.id
-                        comment:"#{guard.name} 成功护卫了 #{@name}。"
+                        comment:"#{guard.name} 成功守护了 #{@name}。"
                     splashlog game.id,game,log
 
     sunrise:(game)->
@@ -6252,7 +6252,7 @@ class TrapGuarded extends Complex
                     log=
                         mode:"skill"
                         to:guard.id
-                        comment:"#{guard.name} 的陷阱成功护卫了 #{@name}。"
+                        comment:"#{guard.name} 的陷阱成功守护了 #{@name}。"
                     splashlog game.id,game,log
             # 反撃する
             canbedead=[]
