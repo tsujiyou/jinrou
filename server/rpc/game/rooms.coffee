@@ -136,7 +136,7 @@ module.exports.actions=(req,res,ss)->
             id=if doc? then doc.id+1 else 1
             
             #在一定时间间隔内，同一用户不能连续建房
-            minTimeInterval = 30*1000
+            minTimeInterval = 60*1000
             unless id>1
                 if doc.owner.userid==req.session.user.userid
                     if (Date.now()-doc.made)<minTimeInterval
@@ -150,6 +150,9 @@ module.exports.actions=(req,res,ss)->
                 players:[]
                 made:Date.now()
                 jobrule:null
+            if room.number>40
+                res {error: "拒绝40人以上超大房，从你我做起。"}
+                return
             room.password=query.password ? null
             room.blind=query.blind
             room.comment=query.comment ? ""
