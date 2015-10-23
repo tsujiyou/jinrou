@@ -577,7 +577,7 @@ module.exports.actions=(req,res,ss)->
                         d.setMinutes d.getMinutes()+banMinutes
                         addquery.expires=d
                         M.blacklist.update {userid:banTarget},{$set:{expires:addquery.expires}},{safe:true},(err,doc)->
-                            ss.publish.channel "room#{roomid}", "punishresult", {id:roomid,name:banTargetName}
+                            ss.publish.channel "room#{roomid}", "punishresult", {id:roomid,userid:banTarget,name:banTargetName}
                             res null
             
 
