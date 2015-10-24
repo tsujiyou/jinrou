@@ -41,7 +41,7 @@ class CircleGraph extends Graph
         @sum=chk @data,@vals
         #大きい順にsort
         @depth=1    # 深度 最高いくつの深さがあるか
-        sortv=(vals,data,dp=1)=>    #dp: 現在の深度
+        sortv=(vals,data,dp=1)=>    #dp: 现在の深度
             @depth=Math.max @depth,dp
             vals.forEach (x)->
                 if x instanceof Array

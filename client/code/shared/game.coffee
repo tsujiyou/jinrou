@@ -969,7 +969,7 @@ exports.jobinfo=
         Neet:
             name:"NEET"
             color:"#aaaaaa"
-# 設定項目
+# 设定項目
 exports.rules=[
     # 黑暗火锅関係
     {
@@ -995,7 +995,7 @@ exports.rules=[
                     {
                         value:"high"
                         label:"高"
-                        title:"出現职业どうしの兼ね合いも考慮します。"
+                        title:"出现职业どうしの兼ね合いも考慮します。"
                     }
                     {
                         value:"middle"

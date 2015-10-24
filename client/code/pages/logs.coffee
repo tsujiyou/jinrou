@@ -4,7 +4,7 @@ exports.start=->
     getroom=Index.game.rooms.getroom
     #ss.rpc "game.rooms.getRooms", mode,page,getroom
 
-    # 规则の設定
+    # 规则の设定
     setjobrule=(rulearr,names,parent)->
         for obj in rulearr
             # name,title, ruleをもつ

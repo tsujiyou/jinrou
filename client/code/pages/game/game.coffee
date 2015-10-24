@@ -28,7 +28,7 @@ exports.start=(roomid)->
     this_style=document.createElement "style"
     document.head.appendChild this_style
     sheet=this_style.sheet
-    #現在の规则
+    #现在の规则
     myrules=
         player:null # プレイヤー・ネーム
         day:"all"   # 表示する日にち
@@ -39,7 +39,7 @@ exports.start=(roomid)->
             sheet.insertRule "#logs > div:not([data-name=\"#{myrules.player}\"]) {opacity: .5}",0
         day=null
         if myrules.day=="today"
-            day=this_logdata.day    # 現在
+            day=this_logdata.day    # 现在
         else if myrules.day!="all"
             day=parseInt myrules.day    # 表示したい日
         
@@ -71,7 +71,7 @@ exports.start=(roomid)->
             Index.util.message "房间","这个房间不存在。"
             Index.app.showUrl "/rooms"
             return
-        # フォームを修正する
+        # 表单を修正する
         forminfo=->
             setplayersnumber room,$("#gamestart").get(0), room.players.filter((x)->x.mode=="player").length
         # 今までのログを送ってもらう
@@ -152,15 +152,15 @@ exports.start=(roomid)->
                     document.body.classList.remove (if game.night then "day" else "night")
 
                 unless $("#jobform").get(0).hidden= game.finished ||  obj.sleeping || !obj.type
-                    # 代入しつつの　投票フォーム必要な場合
+                    # 代入しつつの　投票表单必要な場合
                     $("#jobform div.jobformarea").attr "hidden","hidden"
                     #$("#form_day").get(0).hidden= game.night || obj.sleeping || obj.type=="GameMaster"
                     $("#form_day").get(0).hidden= !obj.voteopen
                     obj.open?.forEach (x)->
-                        # 開けるべきフォームが指定されている
+                        # 開けるべき表单が指定されている
                         $("#form_#{x}").prop "hidden",false
                     if (obj.job_selection ? []).length==0
-                        # 対象選択がない・・・表示しない
+                        # 対象选择がない・・・表示しない
                         $("#form_players").prop "hidden",true
                     else
                         $("#form_players").prop "hidden",false
@@ -175,7 +175,7 @@ exports.start=(roomid)->
                 setJobSelection obj.job_selection ? []
                 select=$("#speakform").get(0).elements["mode"]
                 if obj.speak && obj.speak.length>0
-                    # 发言方法の選択
+                    # 发言方法の选择
                     $(select).empty()
                     select.disabled=false
                     for val in obj.speak
@@ -233,7 +233,7 @@ exports.start=(roomid)->
         # 新しい游戏
         newgamebutton = (je)->
             form=$("#gamestart").get 0
-            # 规则設定保存を参照する
+            # 规则设定保存を参照する
             # 规则画面を構築するぞーーー(idx: グループのアレ)
             buildrules=(arr,parent)->
                 p=null
@@ -253,7 +253,7 @@ exports.start=(roomid)->
                         parent.append fieldset
                         p=null
                     else
-                        # ひとつの設定だ
+                        # ひとつの设定だ
                         if obj.type=="separator"
                             # pの区切り
                             p=$ "<p>"
@@ -341,7 +341,7 @@ exports.start=(roomid)->
                 jobs=JSON.parse localStorage.savedJobs
                 delete localStorage.savedRule
                 delete localStorage.savedJobs
-                # 时间設定
+                # 时间设定
                 daysec=rule.day-0
                 nightsec=rule.night-0
                 remainsec=rule.remain-0
@@ -371,7 +371,7 @@ exports.start=(roomid)->
             $("#gamestartsec").removeAttr "hidden"
         $("#roomname").text room.name
         if room.mode=="waiting"
-            # 開始前のユーザー一览は roomから取得する
+            # 开始前のユーザー一览は roomから取得する
             room.players.forEach (x)->
                 li=makeplayerbox x,room.blind
                 $("#players").append li
@@ -427,7 +427,7 @@ exports.start=(roomid)->
                     else
                         Index.app.refresh()
             if room.mode=="waiting"
-                # 開始前
+                # 开始前
                 b=makebutton "准备/取消准备","全员准备好后即可开始游戏。"
                 $("#playersinfo").append b
                 $(b).click (je)->
@@ -492,7 +492,7 @@ exports.start=(roomid)->
                 
                 
         $("#gamestart").submit (je)->
-            # いよいよ游戏開始だ！
+            # いよいよ游戏开始だ！
             je.preventDefault()
             query=Index.util.formQuery je.target
             jobrule=query.jobrule
@@ -512,7 +512,7 @@ exports.start=(roomid)->
                             starting()
                 else
                     starting()
-            # じっさいに開始
+            # じっさいに开始
             starting=->
                 ss.rpc "game.game.gameStart", roomid,query,(result)->
                     if result?
@@ -557,7 +557,7 @@ exports.start=(roomid)->
                 # 複数行は直す
                 form.elements["multilinecheck"].click()
         speakform.elements["willbutton"].addEventListener "click", (e)->
-            # 遗言フォームオープン
+            # 遗言表单オープン
             wf=$("#willform").get 0
             if wf.hidden
                 wf.hidden=false
@@ -769,7 +769,7 @@ exports.start=(roomid)->
                 ss.rpc "game.rooms.enter", roomid,sessionStorage.roompassword ? null,(result)->
                     ss.rpc "game.game.getlog", roomid,sentlog
                 ss.rpc "game.rooms.oneRoom", roomid,(r)->room=r
-        # 投票フォームオープン
+        # 投票表单オープン
         socket_ids.push Index.socket.on "voteform",null,(msg,channel)->
             if channel=="room#{roomid}" || channel.indexOf("room#{roomid}_")==0 || channel==Index.app.userid()
                 if msg
@@ -811,14 +811,14 @@ exports.start=(roomid)->
                     myrules.player=li.dataset.name
             setcss()
         $("#chooseviewselect").change (je)->
-            # 表示部分を選択
+            # 表示部分を选择
             v=je.target.value
             myrules.day=v
             setcss()
         .click (je)->
             je.stopPropagation()
 
-    # 职业入力フォームを作る
+    # 职业入力表单を作る
     for job in Shared.game.jobs
         # 探す
         continue if job=="Human"    # 村人だけは既に置いてある（あまり）
@@ -989,7 +989,7 @@ exports.start=(roomid)->
             jobpr=jobprops.children(".prop.#{job}")
             if jobrule in ["特殊规则.黑暗火锅","特殊规则.半份黑暗火锅"] || form.elements[job].value>0
                 jobpr.prop "hidden",false
-        # 规则による設定
+        # 规则による设定
         ruleprops=$("#ruleprops")
         ruleprops.children(".prop").prop "hidden",true
         switch jobrule
@@ -1183,7 +1183,7 @@ exports.start=(roomid)->
         valuemap={} #重複を取り除く
         for x in selections
             continue if valuemap[x.value]   # 重複チェック
-            # 投票フォーム用
+            # 投票表单用
             li=document.createElement "li"
             #if x.dead
             #   li.classList.add "dead"

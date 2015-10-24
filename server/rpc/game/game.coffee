@@ -57,7 +57,7 @@ module.exports=
             if pr
                 name="#{Server.prize.prizeQuote pr}#{name}"
         if room.mode=="waiting"
-            # 開始前（ふつう）
+            # 开始前（ふつう）
             log=
                 comment:"#{name} 加入了游戏。"
                 userid:-1
@@ -218,7 +218,7 @@ class Game
         @revote_num=0   # 重新投票を行った回数
         
         @werewolf_target=[] # 人狼の襲い先
-        @werewolf_target_remain=0   #襲撃先をあと何人設定できるか
+        @werewolf_target_remain=0   #襲撃先をあと何人设定できるか
         @werewolf_flag=[] # 人狼襲撃に関するフラグ
 
         @slientexpires=0    # 静かにしてろ！（この时间まで）
@@ -233,7 +233,7 @@ class Game
         @startplayers=null
         @startsupporters=null
 
-        # 希望役职制のときに開始前に职业選択するフェーズ
+        # 希望役职制のときに开始前に职业选择するフェーズ
         @rolerequestingphase=false
         @rolerequesttable={}    # 一览{(id):(jobtype)}
         
@@ -300,7 +300,7 @@ class Game
 
         game.werewolf_target=obj.werewolf_target ? []
         game.werewolf_target_remain=obj.werewolf_target_remain ? 0
-        # 開始前なら準備中を用意してあげないと！
+        # 开始前なら準備中を用意してあげないと！
         if game.day==0
             Server.game.rooms.oneRoomS game.id,(room)->
                 if room.error?
@@ -1003,7 +1003,7 @@ class Game
     #timeoutがtrueならば时间切れなので时间でも待たない
     checkjobs:(timeout)->
         if @day==0
-            # 開始前（希望役职制）
+            # 开始前（希望役职制）
             if timeout || @players.every((x)=>@rolerequesttable[x.id]?)
                 # 全员できたぞ
                 @setplayers (result)=>
@@ -1526,9 +1526,9 @@ class Game
         if @rolerequestingphase
             # 希望役职制
             time=60
-            mode="希望選択"
+            mode="希望选择"
             func= =>
-                # 強制開始
+                # 強制开始
                 @checkjobs true
         else if @night && !@voting
             # 夜
@@ -1693,7 +1693,7 @@ class Game
         ###
 ###
 logs:[{
-    mode:"day"(昼) / "system"(システムメッセージ) /  "werewolf"(狼) / "heaven"(天国) / "prepare"(開始前/终了後) / "skill"(能力ログ) / "nextturn"(游戏進行) / "audience"(观战者のひとりごと) / "monologue"(夜のひとりごと) / "voteresult" (投票结果） / "couple"(共有者) / "fox"(妖狐) / "will"(遗言)
+    mode:"day"(昼) / "system"(システムメッセージ) /  "werewolf"(狼) / "heaven"(天国) / "prepare"(开始前/终了後) / "skill"(能力ログ) / "nextturn"(游戏進行) / "audience"(观战者のひとりごと) / "monologue"(夜のひとりごと) / "voteresult" (投票结果） / "couple"(共有者) / "fox"(妖狐) / "will"(遗言)
     comment: String
     userid:Userid
     name?:String
@@ -2120,13 +2120,13 @@ class Player
     divined:(game,player)->
     # ちょっかいを出されたとき(jobのとき)
     touched:(game,from)->
-    # 選択肢を返す
+    # 选择肢を返す
     makeJobSelection:(game)->
         if game.night
             # 夜の能力
             jt=@job_target
             if jt>0
-                # 参加者を選択する
+                # 参加者を选择する
                 result=[]
                 for pl in game.players
                     if (pl.dead && (jt&Player.JOB_T_DEAD))||(!pl.dead && (jt&Player.JOB_T_ALIVE))
@@ -2152,7 +2152,7 @@ class Player
         return sl.length==0 || sl.some((x)->x.value==query.target)
     # 职业情報を載せる
     makejobinfo:(game,obj)->
-        # 開くべきフォームを配列で（生きている場合）
+        # 開くべき表单を配列で（生きている場合）
         obj.open ?=[]
         if !@jobdone(game) && (game.night || @chooseJobDay(game))
             obj.open.push @type
@@ -2164,7 +2164,7 @@ class Player
         }
 
         obj.job_target=@getjob_target()
-        # 選択肢を教える {name:"名字",value:"値"}
+        # 选择肢を教える {name:"名字",value:"値"}
         obj.job_selection ?= []
         obj.job_selection=obj.job_selection.concat @makeJobSelection game
         # 重複を取り除くのはクライアント側にやってもらおうかな…
@@ -2176,14 +2176,14 @@ class Player
         else
             # セットなどによる漏洩を防止
             delete obj.queens
-    # 昼でも対象選択を行えるか
+    # 昼でも対象选择を行えるか
     chooseJobDay:(game)->false
     # 仕事先情報を教える
     getjob_target:->@job_target
-    # 昼の发言の選択肢
+    # 昼の发言の选择肢
     getSpeakChoiceDay:(game)->
         ["day","monologue"]
-    # 夜の发言の選択肢を得る
+    # 夜の发言の选择肢を得る
     getSpeakChoice:(game)->
         ["monologue"]
     # Complexから抜ける
@@ -4164,7 +4164,7 @@ class Thief extends Player
         null
     makeJobSelection:(game)->
         if game.night
-            # 职业から選択
+            # 职业から选择
             arr=JSON.parse(@flag ? '["Human"]')
             arr.map (x)->
                 testpl=new jobs[x]
@@ -4180,7 +4180,7 @@ class Dog extends Player
     psychicResult:"人狼"
     sunset:(game)->
         super
-        @setTarget null    # 1日目:飼い主選択 選択後:かみ殺す人選択
+        @setTarget null    # 1日目:飼い主选择 选择後:かみ殺す人选择
         if !@flag?   # 飼い主を決めていない
             if @scapegoat
                 alives=game.players.filter (x)=>!x.dead && x.id!=@id
@@ -4217,7 +4217,7 @@ class Dog extends Player
             if pl.id==@id
                 return "不能成为自己的饲主。"
             pl.touched game,@id
-            # 飼い主を選択した
+            # 飼い主を选择した
             log=
                 mode:"skill"
                 to:@id
@@ -4258,7 +4258,7 @@ class Dog extends Player
             else
                 result.open.push "Dog2"
     makeJobSelection:(game)->
-        # 噛むときは対象選択なし
+        # 噛むときは対象选择なし
         if game.night && @flag?
             []
         else super
@@ -4757,7 +4757,7 @@ class GreedyWolf extends Werewolf
                 result.open?.push "GreedyWolf"
     makeJobSelection:(game)->
         if game.night && @sleeping(game) && !@jobdone(game)
-            # 欲張る選択肢のみある
+            # 欲張る选择肢のみある
             return []
         else
             return super
@@ -5424,7 +5424,7 @@ class BadLady extends Player
     sleeping:->@flag?.set
     sunset:(game)->
         unless @flag?.set
-            # まだ恋人未設定
+            # まだ恋人未设定
             if @scapegoat
                 @flag={
                     set:true
@@ -5492,7 +5492,7 @@ class BadLady extends Player
     makejobinfo:(game,result)->
         super
         if !@jobdone(game) && game.night
-            # 夜の選択肢
+            # 夜の选择肢
             fl=@flag ? {}
             unless fl.set
                 unless fl.main
@@ -5590,7 +5590,7 @@ class Pyrotechnist extends Player
         @sunset game
     checkJobValidity:(game,query)->
         if query.jobtype=="Pyrotechnist"
-            # 対象選択は不要
+            # 対象选择は不要
             return true
         return super
 
@@ -5776,7 +5776,7 @@ class GameMaster extends Player
             "gmreply_#{pl.id}"
         ["gm","gmheaven","gmaudience","gmmonologue"].concat pls
     getSpeakChoiceDay:(game)->@getSpeakChoice game
-    chooseJobDay:(game)->true   # 昼でも対象選択
+    chooseJobDay:(game)->true   # 昼でも対象选择
 
 # 帮手
 class Helper extends Player
@@ -5836,7 +5836,7 @@ class Helper extends Player
                     result[value.name]=helpedinfo[value.name]
         null
 
-# 開始前のやつだ!!!!!!!!
+# 开始前のやつだ!!!!!!!!
 class Waiting extends Player
     type:"Waiting"
     jobname:"尚未分配"
@@ -5854,7 +5854,7 @@ class Waiting extends Player
         result.open.push "Waiting"
     makeJobSelection:(game)->
         if game.day==0 && game.rolerequestingphase
-            # 開始前
+            # 开始前
             result=[{
                 name:"放弃选择"
                 value:""
@@ -6659,7 +6659,7 @@ jobs=
     # 特殊
     GameMaster:GameMaster
     Helper:Helper
-    # 開始前
+    # 开始前
     Waiting:Waiting
     Watching:Watching
     
@@ -6781,7 +6781,7 @@ jobStrength=
 module.exports.actions=(req,res,ss)->
     req.use 'session'
 
-#游戏開始処理
+#游戏开始処理
 #成功：null
     gameStart:(roomid,query)->
         game=games[roomid]
@@ -6793,7 +6793,7 @@ module.exports.actions=(req,res,ss)->
                 res room.error
                 return
             unless room.mode=="waiting"
-                # すでに開始している
+                # すでに开始している
                 res "本场游戏已经开始"
                 return
             if room.players.some((x)->!x.start)
@@ -6841,7 +6841,7 @@ module.exports.actions=(req,res,ss)->
                 res "人数过多。量子人狼的人数应当在19人以下。"
                 return
                 
-            ruleinfo_str="" # 開始告知
+            ruleinfo_str="" # 开始告知
 
             if query.jobrule in ["特殊规则.自由配役","特殊规则.半份黑暗火锅"]   # 自由のときはクエリを参考にする
                 for job in Shared.game.jobs
@@ -7201,7 +7201,7 @@ module.exports.actions=(req,res,ss)->
                                             continue
                                 when "OccultMania"
                                     if joblist.Diviner==0 && Math.random()<0.5
-                                        # 占卜师いないと出現確率低い
+                                        # 占卜师いないと出现確率低い
                                         continue
                                 when "QueenSpectator"
                                     # 2人いたらだめ
@@ -7384,7 +7384,7 @@ module.exports.actions=(req,res,ss)->
                     for team,obj of Shared.game.jobinfo
                         teamcount=0
                         for job,num of joblist
-                            #出現职业チェック
+                            #出现职业チェック
                             continue if num==0
                             if obj[job]?
                                 # この阵营だ
@@ -7418,7 +7418,7 @@ module.exports.actions=(req,res,ss)->
                 # 希望役职制あり
                 # とりあえず入れなくする
                 M.rooms.update {id:roomid},{$set:{mode:"playing"}}
-                # 职业選択中
+                # 职业选择中
                 game.rolerequestingphase=true
                 # ここ書いてないよ!
                 game.rolerequesttable={}
@@ -7460,7 +7460,7 @@ module.exports.actions=(req,res,ss)->
                 null
             result.timer_mode=game.timer_mode
             if game.day==0
-                # 開始前はプレイヤー情報配信しない
+                # 开始前はプレイヤー情報配信しない
                 delete result.game.players
             res result
         if game?
@@ -7814,7 +7814,7 @@ makejobinfo = (game,player,result={})->
     openjob_flag=game.finished || (actpl?.dead && game.heavenview) || actpl?.isJobType("GameMaster")
     result.openjob_flag = openjob_flag
 
-    result.game=game.publicinfo({openjob:openjob_flag})  # 终了か灵界（规则設定あり）の場合は職情報公開
+    result.game=game.publicinfo({openjob:openjob_flag})  # 终了か灵界（规则设定あり）の場合は職情報公開
     result.id=game.id
 
     if player
@@ -7824,7 +7824,7 @@ makejobinfo = (game,player,result={})->
         result.dead=player.dead
         result.voteopen=false
         result.sleeping=true
-        # 投票が终了したかどうか（フォーム表示するかどうか判断）
+        # 投票が终了したかどうか（表单表示するかどうか判断）
         if plpl?
             # 参加者として
             if game.night || game.day==0

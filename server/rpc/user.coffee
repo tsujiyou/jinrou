@@ -261,8 +261,8 @@ makeuserdata=(query)->
         lose:[] # 負け試合
         gone:[] # 行方不明試合
         ip:""   # IPアドレス
-        prize:[]# 現在持っている称号
+        prize:[]# 现在持っている称号
         ownprize:[] # 何かで与えられた称号（prizeに含まれる）
-        nowprize:null   # 現在設定している肩書き
+        nowprize:null   # 现在设定している肩書き
                 # [{type:"prize",value:(prizeid)},{type:"conjunction",value:"が"},...]
     }
