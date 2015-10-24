@@ -1,12 +1,13 @@
 section.rooms
   h1 新建房间
+  p 以下项目在房间建成后不能更改
   form#newroomform
     p
       label
         | 房间名
         input(size="30",name="name",required)
     p
-      label(title="密码を設定すると、密码を入力しないと入れない鍵付き部屋になります。")
+      label(title="设定密码后，必须有正确的密码才能进入房间。")
         input(type="checkbox",name="usepassword")
         | 密码
       input(type="text",name="password",disabled,required)
@@ -15,7 +16,7 @@ section.rooms
         | 简介
         input(size="50",name="comment")
     fieldset
-      legend 规则
+      h2 房间规则
       p
         label
           | 最大人数

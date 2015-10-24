@@ -189,7 +189,7 @@ exports.login=login=(uid,ups,cb)->
                     notice=document.createElement "div"
                     notice.classList.add "notice"
                     notice.id="newNewsNotice"
-                    notice.textContent="有新的通知，请前往个人中心查看。"
+                    notice.textContent="有新的通知，请前往个人页面查看。"
                     $("#content").before notice
 
             cb? true
@@ -198,7 +198,7 @@ exports.login=login=(uid,ups,cb)->
 exports.userid=->my_userid
 exports.setUserid=(id)->my_userid=id
 
-# カラー設定を読み込む
+# カラー设定を読み込む
 exports.getCurrentColorProfile=getCurrentColorProfile=->
     p=localStorage.colorProfile || "{}"
     obj=null
@@ -224,12 +224,12 @@ exports.getCurrentColorProfile=getCurrentColorProfile=->
 # 保存する
 exports.setCurrentColorProfile=(cp)->
     localStorage.colorProfile=JSON.stringify cp
-# カラー設定反映
+# カラー设定反映
 exports.useColorProfile=useColorProfile=(cp)->
     st=$("#profilesheet").get 0
     if st?
         sheet=st.sheet
-        # 設定されているものを利用
+        # 设定されているものを利用
         while sheet.cssRules.length>0
             sheet.deleteRule 0
             

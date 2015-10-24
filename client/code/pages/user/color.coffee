@@ -2,9 +2,9 @@ app=require '/app'
 util=require '/util'
 
 exports.start=->
-    # 現在のカラー設定を読み込み
+    # 现在のカラー设定を読み込み
     cp=app.getCurrentColorProfile()
-    # 現在のところに表示
+    # 现在のところに表示
     editcallback=(cp)->
         ->
             app.setCurrentColorProfile cp

@@ -14,7 +14,7 @@ room: {
   number: Number(プレイヤー数)
   players:[PlayerObject,PlayerObject,...]
   gm: Booelan(trueならオーナーGM)
-  jobrule: String   //開始後はなんの配役か（Endless黑暗火锅用）
+  jobrule: String   //开始後はなんの配役か（Endless黑暗火锅用）
 }
 PlayerObject.start=Boolean
 PlayerObject.mode="player" / "gm" / "helper"

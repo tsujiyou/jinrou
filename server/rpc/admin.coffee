@@ -7,7 +7,7 @@ settings=Config.mongo
 oauth=require './../oauth.coffee'
 exports.actions =(req,res,ss)->
     req.use 'session'
-    # 現在のセッションを管理者として承認する
+    # 现在のセッションを管理者として承認する
     register:(query)->
         flag=false
         req.session.administer=false
@@ -198,4 +198,4 @@ exports.actions =(req,res,ss)->
         M.news.insert addquery,{safe:true},(err,doc)->
             res null
 
-pro=null    # 現在のプロセス
+pro=null    # 现在のプロセス
