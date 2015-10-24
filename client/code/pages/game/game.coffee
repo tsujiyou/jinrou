@@ -868,7 +868,7 @@ exports.start=(roomid)->
         name:"特殊规则"
         rule:[
             {
-                name:"自由角色"
+                name:"自由配役"
                 title:"可以自由的选择角色。"
                 rule:null
             }
