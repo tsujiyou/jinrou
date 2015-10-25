@@ -272,15 +272,16 @@
           input(size="50",name="comment",required)
           label
             input(type="checkbox",name="multilinecheck")
-            复数行
+            small
+              复数行
           input(type="submit",value="发言")
           span#gmsayopt
           small
             字号：
           select(name="size")
-            option(value="small") 以小字号发言
+            option(value="small") 小字号
             option(value="",selected) 普通
-            option(value="big") 以大字号发言
+            option(value="big") 大字号
           select(name="mode")
           small
             按日期：
