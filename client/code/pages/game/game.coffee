@@ -1419,7 +1419,6 @@ $ ->
       $("#logs").css
         position: "relative"
         top: $("#sticky").height() + "px"
-        "margin-right": "15px"
         "max-width": "800px"
 
       $("#sticky").addClass "sticky"
