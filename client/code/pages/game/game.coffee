@@ -1422,7 +1422,10 @@ $ ->
         "max-width": "800px"
 
       $("#sticky").addClass "sticky"
-      $("#sticky").css "background-color", $("body").css("background-color")
+      $("#sticky").css
+        "background-color": $("body").css("background-color")
+        "width": $("#logs").css "width"
     if winTop < sticky_top and $("#sticky").hasClass("sticky")
       $(".sticky").removeAttr "class"
+      $(".sticky").removeAttr "style"
       $("#logs").removeAttr "style"
