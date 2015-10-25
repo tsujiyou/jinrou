@@ -1410,10 +1410,14 @@ speakValueToStr=(game,value)->
 $ ->
   sticky_top = undefined
   $(window).scroll ->
-    return  if $("body").hasClass("finished")
-    winTop = $(window).scrollTop()
+    if $("body").hasClass("finished")
+      return
     unless $("#sticky").length > 0
       return
+    if $("#sticky").hasClass("sticky")
+      $("#sticky").css
+        "background-color": $("body").css("background-color")
+    winTop = $(window).scrollTop()
     if winTop >= $("#sticky").offset().top and not $("#sticky").hasClass("sticky")
       sticky_top = $("#sticky").offset().top
       $("#logs").css
