@@ -145,6 +145,7 @@ exports.start=(roomid)->
                     if $(".sticky").length
                         $(".sticky").removeAttr "style"
                         $(".sticky").removeAttr "class"
+                        $("#logs").removeAttr "style"
                     $("#jobform").attr "hidden","hidden"
                     if timerid
                         clearInterval timerid
