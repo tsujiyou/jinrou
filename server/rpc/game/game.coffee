@@ -226,7 +226,7 @@ class Game
 
         @gamelogs=[]
         @iconcollection={}  #(id):(url)
-        # 决定配役（DBに入らないかも・・・）
+        # 决定配置（DBに入らないかも・・・）
         @joblist=null
         # 游戏スタートに必要な情報
         @startoptions=null
@@ -6843,7 +6843,7 @@ module.exports.actions=(req,res,ss)->
                 
             ruleinfo_str="" # 开始告知
 
-            if query.jobrule in ["特殊规则.自由配役","特殊规则.半份黑暗火锅"]   # 自由のときはクエリを参考にする
+            if query.jobrule in ["特殊规则.自由配置","特殊规则.半份黑暗火锅"]   # 自由のときはクエリを参考にする
                 for job in Shared.game.jobs
                     joblist[job]=parseInt(query[job]) || 0    # 仕事の数
                 # カテゴリも
@@ -7340,8 +7340,8 @@ module.exports.actions=(req,res,ss)->
                 ruleinfo_str=Shared.game.getrulestr query.jobrule,list_for_rule
                 
 
-            else if query.jobrule!="特殊规则.自由配役"
-                # 配役に従ってアレする
+            else if query.jobrule!="特殊规则.自由配置"
+                # 配置に従ってアレする
                 func=Shared.game.getrulefunc query.jobrule
                 unless func
                     res "不明的配置"
@@ -7362,7 +7362,7 @@ module.exports.actions=(req,res,ss)->
                 
             log=
                 mode:"system"
-                comment:"配役: #{ruleinfo_str}"
+                comment:"配置: #{ruleinfo_str}"
             splashlog game.id,game,log
             
             if query.jobrule in ["特殊规则.黑暗火锅","特殊规则.半份黑暗火锅","特殊规则.Endless黑暗火锅"]
@@ -7408,7 +7408,7 @@ module.exports.actions=(req,res,ss)->
                 ruleobj[x]=query[x] ? null
 
             game.setrule ruleobj
-            # 配役リストをセット
+            # 配置リストをセット
             game.joblist=joblist
             game.startoptions=options
             game.startplayers=players

@@ -360,7 +360,7 @@ exports.start=(roomid)->
                             e.checked = e.value==rule[key]
                         else
                             e.value=rule[key]
-                # 配役も再現
+                # 配置も再現
                 for job in Shared.game.jobs
                     e=form.elements[job]    # 职业
                     if e?
@@ -846,7 +846,7 @@ exports.start=(roomid)->
         input.dataset.categoryName=name
         dd.appendChild input
         $("#catesfield").append(dt).append dd
-    # 配役タイプ
+    # 配置タイプ
     setjobrule=(rulearr,names,parent)->
         for obj in rulearr
             # name,title, ruleをもつ
@@ -868,7 +868,7 @@ exports.start=(roomid)->
         name:"特殊规则"
         rule:[
             {
-                name:"自由配役"
+                name:"自由配置"
                 title:"可以自由的选择角色。"
                 rule:null
             }
@@ -908,12 +908,12 @@ exports.start=(roomid)->
         form.elements["number"].value=number
         setplayersbyjobrule room,form,number
         jobsformvalidate room,form
-    # 配役一览をアレする
+    # 配置一览をアレする
     setplayersbyjobrule=(room,form,number)->
         jobrulename=form.elements["jobrule"].value
         if form.elements["scapegoat"].value=="on"
             number++    # 替身君
-        if jobrulename in ["特殊规则.自由配役","特殊规则.半份黑暗火锅"]
+        if jobrulename in ["特殊规则.自由配置","特殊规则.半份黑暗火锅"]
             $("#jobsfield").get(0).hidden=false
             $("#catesfield").get(0).hidden= jobrulename!="特殊规则.半份黑暗火锅"
             #$("#yaminabe_opt_nums").get(0).hidden=true
@@ -966,7 +966,7 @@ exports.start=(roomid)->
             checkrule form,ruleobj,obj.rules,fsetname2
             
             
-    # 配役をテキストで書いてあげる
+    # 配置をテキストで書いてあげる
     setjobsmonitor=(form,number)->
         text=""
         rule=Index.util.formQuery form
