@@ -454,7 +454,7 @@ exports.start=(roomid)->
                 $("#playersinfo").append b
                 $(b).click (je)->
                     Index.util.selectprompt "踢出","请选择要被踢出的人",room.players.map((x)->{name:x.name,value:x.userid}),(id)->
-#                   Index.util.prompt "踢出","踢出人のidを入力して下さい:",null,(id)->
+                    # Index.util.prompt "踢出","踢出人のidを入力して下さい:",null,(id)->
                         ss.rpc "game.rooms.kick", roomid,id,(result)->
                             if result?
                                 Index.util.message "错误",result
@@ -1406,3 +1406,24 @@ speakValueToStr=(game,value)->
                 "→#{pl.name}"
             else if result=value.match /^helperwhisper_(.+)$/
                 "建议"
+
+$ ->
+  sticky_top = undefined
+  $(window).scroll ->
+    return  if $("body").hasClass("finished")
+    winTop = $(window).scrollTop()
+    unless $("#sticky").length > 0
+      return
+    if winTop >= $("#sticky").offset().top and not $("#sticky").hasClass("sticky")
+      sticky_top = $("#sticky").offset().top
+      $("#logs").css
+        position: "relative"
+        top: $("#sticky").height() + "px"
+        "margin-right": "15px"
+        "max-width": "800px"
+
+      $("#sticky").addClass "sticky"
+      $("#sticky").css "background-color", $("body").css("background-color")
+    if winTop < sticky_top and $("#sticky").hasClass("sticky")
+      $(".sticky").removeAttr "class"
+      $("#logs").removeAttr "style"
