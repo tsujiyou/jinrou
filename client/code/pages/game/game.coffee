@@ -142,6 +142,9 @@ exports.start=(roomid)->
                     # 终了
                     document.body.classList.add "finished"
                     document.body.classList.remove x for x in ["day","night"]
+                    if $(".sticky").length
+                        $(".sticky").removeAttr "style"
+                        $(".sticky").removeAttr "class"
                     $("#jobform").attr "hidden","hidden"
                     if timerid
                         clearInterval timerid
@@ -1414,9 +1417,11 @@ speakValueToStr=(game,value)->
 $ ->
   sticky_top = undefined
   $(window).scroll ->
-    if $("body").hasClass("finished")
-      return
     unless $("#sticky").length > 0
+      return
+    if $("body").hasClass("finished")
+      $(".sticky").removeAttr "style"
+      $(".sticky").removeAttr "class"
       return
     winTop = $(window).scrollTop()
     if winTop >= $("#sticky").offset().top and not $("#sticky").hasClass("sticky")
