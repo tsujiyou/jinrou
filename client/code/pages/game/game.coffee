@@ -151,6 +151,10 @@ exports.start=(roomid)->
                     document.body.classList.add (if game.night then "night" else "day")
                     document.body.classList.remove (if game.night then "day" else "night")
 
+                    if $("#sticky").hasClass("sticky")
+                      $("#sticky").css
+                        "background-color": $("body").css("background-color")
+
                 unless $("#jobform").get(0).hidden= game.finished ||  obj.sleeping || !obj.type
                     # 代入しつつの　投票表单必要な場合
                     $("#jobform div.jobformarea").attr "hidden","hidden"
@@ -1414,9 +1418,6 @@ $ ->
       return
     unless $("#sticky").length > 0
       return
-    if $("#sticky").hasClass("sticky")
-      $("#sticky").css
-        "background-color": $("body").css("background-color")
     winTop = $(window).scrollTop()
     if winTop >= $("#sticky").offset().top and not $("#sticky").hasClass("sticky")
       sticky_top = $("#sticky").offset().top
