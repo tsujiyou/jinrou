@@ -1426,6 +1426,6 @@ $ ->
         "background-color": $("body").css("background-color")
         "width": $("#logs").css "width"
     if winTop < sticky_top and $("#sticky").hasClass("sticky")
-      $(".sticky").removeAttr "class"
       $(".sticky").removeAttr "style"
+      $(".sticky").removeAttr "class"
       $("#logs").removeAttr "style"
