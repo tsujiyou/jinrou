@@ -270,28 +270,31 @@
       form#speakform
         p
           input(size="50",name="comment",required)
+          label
+            input(type="checkbox",name="multilinecheck")
+            复数行
           input(type="submit",value="发言")
           span#gmsayopt
+          发言字号：
           select(name="size")
             option(value="small") 以小字号发言
             option(value="",selected) 普通
             option(value="big") 以大字号发言
           select(name="mode")
-          label
-            input(type="checkbox",name="multilinecheck")
-            复数行
           |  
-          span#time
-          input(type="button",value="遗言",name="willbutton")
-          input(type="button",value="规则",name="rulebutton",disabled)
+          按日期过滤发言：
           select#chooseviewselect
             option(value="all",selected) 全部
             option(value="today") 今日
             optgroup#chooseviewday(label="单日")
+          span#time
+          br
+          input(type="button",value="遗言",name="willbutton")
+          input(type="button",value="规则",name="rulebutton",disabled)
           input(type="button",value="强行退出",name="norevivebutton",disabled)
       form#willform(hidden)
         p
-          textarea(name="will",cols="50",rows="3",maxlength="1000")
+          textarea(name="will",cols="80",rows="3",maxlength="1000")
           input(type="submit",value="决定")
   #logs
   
