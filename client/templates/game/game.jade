@@ -275,14 +275,15 @@
             复数行
           input(type="submit",value="发言")
           span#gmsayopt
-          发言字号：
+          small
+            字号：
           select(name="size")
             option(value="small") 以小字号发言
             option(value="",selected) 普通
             option(value="big") 以大字号发言
           select(name="mode")
-          |  
-          按日期过滤发言：
+          small
+            按日期：
           select#chooseviewselect
             option(value="all",selected) 全部
             option(value="today") 今日
@@ -294,7 +295,7 @@
           input(type="button",value="强行退出",name="norevivebutton",disabled)
       form#willform(hidden)
         p
-          textarea(name="will",cols="80",rows="3",maxlength="1000")
+          textarea(name="will",cols="50",rows="3",maxlength="1000")
           input(type="submit",value="决定")
   #logs
   
