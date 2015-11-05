@@ -2867,7 +2867,7 @@ class Fugitive extends Player
     jobname:"逃亡者"
     sunset:(game)->
         @setTarget null
-        if game.day<=1 && game.rule.scapegoat!="off"    # 一日目は逃げない
+        if game.day<=1 #&& game.rule.scapegoat!="off"    # 一日目は逃げない
             @setTarget ""
         else if @scapegoat
             # 身代わり君の自動占い
