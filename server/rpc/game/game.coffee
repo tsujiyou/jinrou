@@ -2011,6 +2011,8 @@ class Player
     isWerewolf:->false
     # 洋子かどうか
     isFox:->false
+    # 妖狐の仲間としてみえるか
+    isFoxVisible:->false
     # 恋人かどうか
     isFriend:->false
     # Complexかどうか
@@ -2564,10 +2566,11 @@ class Fox extends Player
     willDieWerewolf:false
     isHuman:->false
     isFox:->true
+    isFoxVisible:->true
     makejobinfo:(game,result)->
         super
         # 妖狐は仲間が分かる
-        result.foxes=game.players.filter((x)->x.type=="Fox").map (x)->
+        result.foxes=game.players.filter((x)->x.isFoxVisible()).map (x)->
             x.publicinfo()
     divined:(game,player)->
         super
@@ -2615,8 +2618,8 @@ class TinyFox extends Diviner
     isFox:->true
     makejobinfo:(game,result)->
         super
-        # 小狐は妖狐が分かる
-        result.foxes=game.players.filter((x)->x.type=="Fox").map (x)->
+        # 子狐は妖狐が分かる
+        result.foxes=game.players.filter((x)->x.isFoxVisible()).map (x)->
             x.publicinfo()
 
     job:(game,playerid)->
@@ -3182,13 +3185,13 @@ class Immoral extends Player
     jobname:"背德者"
     team:"Fox"
     beforebury:(game,type)->
-        # 狐が全员死んでいたら自殺
-        unless game.players.some((x)->!x.dead && x.type=="Fox")
+        # 狐が全員死んでいたら自殺
+        unless game.players.some((x)->!x.dead && x.isFox())
             @die game,"foxsuicide"
     makejobinfo:(game,result)->
         super
         # 妖狐が分かる
-        result.foxes=game.players.filter((x)->x.isFox()).map (x)->
+        result.foxes=game.players.filter((x)->x.isFoxVisible()).map (x)->
             x.publicinfo()
 class Devil extends Player
     type:"Devil"
@@ -6518,6 +6521,7 @@ class FoxMinion extends Complex
     willDieWerewolf:false
     isHuman:->false
     isFox:->true
+    isFoxVisible:->true
     getJobname:->"狐凭（#{@main.getJobname()}）"
     # 占われたら死ぬ
     divined:(game,player)->
