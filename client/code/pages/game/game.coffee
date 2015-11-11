@@ -1430,6 +1430,9 @@ $ ->
     unless $("#sticky").length > 0
       return
     unless $("#isfloat").is(':checked')
+      $(".sticky").removeAttr "style"
+      $(".sticky").removeAttr "class"
+      $("#logs").removeAttr "style"
       return
     if $("body").hasClass("finished")
       return
