@@ -1423,11 +1423,15 @@ $ ->
 
   sticky_top = undefined
   $(window).scroll ->
+    sticky()
+  $("#isfloat").click ->
+    sticky()
+  sticky = ->
     unless $("#sticky").length > 0
       return
+    unless $("#isfloat").is(':checked')
+      return
     if $("body").hasClass("finished")
-      $(".sticky").removeAttr "style"
-      $(".sticky").removeAttr "class"
       return
     winTop = $(window).scrollTop()
     if winTop >= $("#sticky").offset().top and not $("#sticky").hasClass("sticky")
@@ -1444,3 +1448,4 @@ $ ->
       $(".sticky").removeAttr "style"
       $(".sticky").removeAttr "class"
       $("#logs").removeAttr "style"
+    

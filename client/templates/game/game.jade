@@ -294,6 +294,9 @@
           input(type="button",value="遗言",name="willbutton")
           input(type="button",value="规则",name="rulebutton",disabled)
           input(type="button",value="强行退出",name="norevivebutton",disabled)
+          label(style="float:right;")
+            input(type="checkbox",id="isfloat",checked)
+            浮动
       form#willform(hidden)
         p
           textarea(name="will",cols="50",rows="3",maxlength="1000")
