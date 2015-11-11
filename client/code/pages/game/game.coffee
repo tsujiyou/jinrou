@@ -1416,6 +1416,11 @@ speakValueToStr=(game,value)->
                 "建议"
 
 $ ->
+  $(window).resize ->
+    unless $(".sticky").length > 0
+      return
+    $("#sticky").css "width",$("#logs").css "width"
+
   sticky_top = undefined
   $(window).scroll ->
     unless $("#sticky").length > 0
@@ -1430,7 +1435,6 @@ $ ->
       $("#logs").css
         position: "relative"
         top: $("#sticky").height() + "px"
-        "max-width": "800px"
 
       $("#sticky").addClass "sticky"
       $("#sticky").css
