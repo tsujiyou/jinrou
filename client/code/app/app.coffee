@@ -94,6 +94,7 @@ exports.showUrl=showUrl=(url,nohistory=false)->
             location.href=url
     
     switch url
+        $("#content").removeAttr "style"
         when "/my"
             # 配置とか
             ss.rpc "user.myProfile", (user)->
@@ -143,6 +144,7 @@ exports.showUrl=showUrl=(url,nohistory=false)->
             if result=url.match /^\/room\/-?(\d+)$/
                 # 房间
                 page "game-game",null,Index.game.game,parseInt result[1]
+                $("#content").css "max-width","95%"
             else if result=url.match /^\/user\/(\w+)$/
                 # ユーザー
                 page "user-view",null,Index.user.view,result[1]
