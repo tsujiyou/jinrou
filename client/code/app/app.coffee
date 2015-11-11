@@ -92,9 +92,8 @@ exports.showUrl=showUrl=(url,nohistory=false)->
             url=result[2]
         else
             location.href=url
-    
+    $("#content").removeAttr "style"
     switch url
-        $("#content").removeAttr "style"
         when "/my"
             # 配置とか
             ss.rpc "user.myProfile", (user)->
