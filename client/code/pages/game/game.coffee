@@ -1430,7 +1430,6 @@ $ ->
       $("#logs").css
         position: "relative"
         top: $("#sticky").height() + "px"
-        "max-width": "90%"
 
       $("#sticky").addClass "sticky"
       $("#sticky").css
