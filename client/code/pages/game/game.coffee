@@ -1439,3 +1439,9 @@ $ ->
       $(".sticky").removeAttr "style"
       $(".sticky").removeAttr "class"
       $("#logs").removeAttr "style"
+
+  $(window).resize ->
+    unless $(".sticky").length > 0
+      return
+    $("#sticky").css
+      "width": $("#logs").css "width"
