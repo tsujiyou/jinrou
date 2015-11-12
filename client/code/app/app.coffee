@@ -92,7 +92,8 @@ exports.showUrl=showUrl=(url,nohistory=false)->
             url=result[2]
         else
             location.href=url
-    $("#content").removeAttr "style"
+    unless $("div#content div.game").length
+        $("#content").removeAttr "style"
     switch url
         when "/my"
             # 配置とか
