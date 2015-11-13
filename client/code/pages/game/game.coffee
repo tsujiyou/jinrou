@@ -1424,7 +1424,7 @@ $ ->
   sticky_top = undefined
   $(window).scroll ->
     sticky()
-  $("#isfloat").on "click",->
+  $("#isfloat").click ->
     sticky()
   sticky = ->
     unless $("#sticky").length > 0
