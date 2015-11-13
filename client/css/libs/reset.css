@@ -49,3 +49,6 @@ table {
 *[hidden]{
 	display:none;
 }
+#logs > div div.comment div {
+    word-break: break-all;
+}
