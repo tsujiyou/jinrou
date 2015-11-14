@@ -1420,7 +1420,11 @@ $ ->
     unless $(".sticky").length > 0
       return
     $("#sticky").css "width",$("#logs").css "width"
-
+  $("#isfloat").live "click",->
+      unless $("#widescreen").is(':checked')
+          $("#content").css "max-width","95%"
+          return
+      $("#content").removeAttr "style"
   sticky_top = undefined
   $(window).scroll ->
     sticky()
