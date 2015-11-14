@@ -1440,9 +1440,9 @@ $ ->
     if winTop >= $("#sticky").offset().top and not $("#sticky").hasClass("sticky")
       sticky_top = $("#sticky").offset().top
       $("#logs").css
-        position: "relative"
-        top: $("#sticky").height() + "px"
-        padding-top: "5px"
+        "position": "relative"
+        "top": $("#sticky").height() + "px"
+        "padding-top": "5px"
 
       $("#sticky").addClass "sticky"
       $("#sticky").css
