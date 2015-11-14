@@ -1416,44 +1416,46 @@ speakValueToStr=(game,value)->
                 "建议"
 
 $ ->
-  $(window).resize ->
-    unless $(".sticky").length > 0
-      return
-    $("#sticky").css "width",$("#logs").css "width"
-  $("#isfloat").live "click",->
-      unless $("#widescreen").is(':checked')
-          $("#content").css "max-width","95%"
-          return
-      $("#content").removeAttr "style"
-  sticky_top = undefined
-  $(window).scroll ->
-    sticky()
-  $("#isfloat").live "click",->
-    sticky()
-  sticky = ->
-    unless $("#sticky").length > 0
-      return
-    unless $("#isfloat").is(':checked')
-      $(".sticky").removeAttr "style"
-      $(".sticky").removeAttr "class"
-      $("#logs").removeAttr "style"
-      return
-    if $("body").hasClass("finished")
-      return
-    winTop = $(window).scrollTop()
-    if winTop >= $("#sticky").offset().top and not $("#sticky").hasClass("sticky")
-      sticky_top = $("#sticky").offset().top
-      $("#logs").css
-        "position": "relative"
-        "top": $("#sticky").height() + "px"
-        "padding-top": "5px"
+    $(window).resize ->
+        unless $(".sticky").length > 0
+            return
+        $("#sticky").css "width",$("#logs").css "width"
+        unless $("div#content div.game").length
+            $("#content").removeAttr "style"
+    $("#widescreen").live "click",->
+        unless $("#widescreen").is(':checked')
+            $("#content").css "max-width","95%"
+            return
+        $("#content").removeAttr "style"
+    sticky_top = undefined
+    $(window).scroll ->
+        sticky()
+    $("#isfloat").live "click",->
+        sticky()
+    sticky = ->
+        unless $("#sticky").length > 0
+            return
+        unless $("#isfloat").is(':checked')
+            $(".sticky").removeAttr "style"
+            $(".sticky").removeAttr "class"
+            $("#logs").removeAttr "style"
+            return
+        if $("body").hasClass("finished")
+            return
+        winTop = $(window).scrollTop()
+        if winTop >= $("#sticky").offset().top and not $("#sticky").hasClass("sticky")
+            sticky_top = $("#sticky").offset().top
+            $("#logs").css
+                "position": "relative"
+                "top": $("#sticky").height() + "px"
+                "padding-top": "5px"
 
-      $("#sticky").addClass "sticky"
-      $("#sticky").css
-        "background-color": $("body").css("background-color")
-        "width": $("#logs").css "width"
-    if winTop < sticky_top and $("#sticky").hasClass("sticky")
-      $(".sticky").removeAttr "style"
-      $(".sticky").removeAttr "class"
-      $("#logs").removeAttr "style"
-    
+            $("#sticky").addClass "sticky"
+            $("#sticky").css
+                "background-color": $("body").css("background-color")
+                "width": $("#logs").css "width"
+        if winTop < sticky_top and $("#sticky").hasClass("sticky")
+            $(".sticky").removeAttr "style"
+            $(".sticky").removeAttr "class"
+            $("#logs").removeAttr "style"
+        
