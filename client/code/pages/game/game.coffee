@@ -1439,10 +1439,9 @@ $ ->
     winTop = $(window).scrollTop()
     if winTop >= $("#sticky").offset().top and not $("#sticky").hasClass("sticky")
       sticky_top = $("#sticky").offset().top
-      var top_offset = $("#sticky").height() + 5
       $("#logs").css
         position: "relative"
-        top: top_offset + "px"
+        top: $("#sticky").height() + "px"
 
       $("#sticky").addClass "sticky"
       $("#sticky").css
