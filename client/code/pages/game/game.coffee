@@ -1423,10 +1423,12 @@ $ ->
         unless $("div#content div.game").length
             $("#content").removeAttr "style"
     $("#widescreen").live "click",->
-        unless $("#widescreen").is(':checked')
+        if $("#widescreen").is(':checked')
             $("#content").css "max-width","95%"
-            return
-        $("#content").removeAttr "style"
+        else
+            $("#content").removeAttr "style"
+        $(".sticky").css
+            "width": $("#logs").css "width"
     sticky_top = undefined
     $(window).scroll ->
         sticky()
