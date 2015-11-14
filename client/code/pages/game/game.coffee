@@ -1442,6 +1442,7 @@ $ ->
       $("#logs").css
         position: "relative"
         top: $("#sticky").height() + "px"
+        padding-top: "5px"
 
       $("#sticky").addClass "sticky"
       $("#sticky").css
