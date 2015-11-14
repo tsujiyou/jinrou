@@ -493,8 +493,10 @@ module.exports.actions=(req,res,ss)->
         unless query?
             res {error:"检索无效"}
             return
+        ###
         res {error:"现在无法使用检索。"}
         return
+        ###
         q=
             finished:true
         if query.result_team
