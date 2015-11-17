@@ -4251,8 +4251,16 @@ class Dictator extends Player
         @setFlag true  # 使用済
         # その場で殺す!!!
         pl.die game,"punish",[this]
+
         # 強制的に次のターンへ
         game.nextturn()
+
+        if pl.dead && game.rule.GMpsychic=="on"
+            # GM霊能
+            log=
+                mode:"system"
+                comment:"処刑された#{player.name}の霊能結果は#{player.psychicResult}でした。"
+            splashlog game.id,game,log
         null
 class SeersMama extends Player
     type:"SeersMama"
