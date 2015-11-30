@@ -1562,6 +1562,7 @@ class Game
                 @players.forEach (x)=>
                     return if x.dead || x.sleeping(@)
                     x.die this,"gone-night" # 突然死
+                    x.setNorevive true
                     # 突然死記録
                     M.users.update {userid:x.realid},{$push:{gone:@id}}
                 @bury("other")
