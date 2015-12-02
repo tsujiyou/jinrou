@@ -4297,7 +4297,12 @@ class Dictator extends Player
         splashlog game.id,game,log
         @setFlag true  # 使用済
         # その場で殺す!!!
-        pl.die game,"punish",[this]
+        pl.die game,"punish",[@id]
+        # 天黑了
+        log=
+            mode:"system"
+            comment:"独裁者 #{@name} 宣布，现在天黑了。"
+        splashlog game.id,game,log
         # 強制的に次のターンへ
         game.nextturn()
         null
